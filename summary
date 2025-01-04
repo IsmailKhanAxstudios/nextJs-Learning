@@ -1,0 +1,13 @@
+perfect i got everything i want to revise all nextjs provides better SEO by metadata 
+which can be exported directly on each routes , it has diffrent rendering such as static
+site generation which fetches data before the initial build and prerendedred we use getStaticprop 
+to perfoem operations and get data in that component using prop it is used for static content that 
+does not require interaction . second is server side generation which fetches data on every request whenever
+user hits that page it fetches data and it is done using getserver side oprops we can use with data that changes
+frequyently and initially all compoentns are ssr and another is client side rendering we can use it for non seo critical
+task normaly it is fetched in useEffect and add dependency. it all increases the performance ,another is isr which is excyetd
+after interval of time it uses getstaticprop with revalidate timer, next js als oprovided image optimisation and code splitting , 
+nextjs also supports backend logic which can be written in app folder and each file becomes api route. rate me out of 10 my knmwodlege
+for nextjs wwe can also use muddle wear for authentication in nextjs and in nextjs if its app router latest one we have index which have the initial 
+comoonentst and export metadata on top we have one laoyouyt for 
+everything but if we want to change we can add layoyts for specific pages. also nextjs supports dynamic routing with [] .
