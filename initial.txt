@@ -1,0 +1,232 @@
+NEXTJS - Fullstack ,  SEO , SERVER Side rendering - Static Site Generation , Server Side Rendering , Client Side Rendering 
+- Can be used to write backend logics Aswell 
+- React is just client side web crawlers are not able to index it / Social Media Preview not present in react 
+Server-Side Rendering (SSR) and Static Site Generation (SSG) out of the box.
+API Routes for backend functionality.
+File-based routing and dynamic routes.
+Built-in optimization features (image optimization, code splitting, etc.).
+Support for both Server Components and Client Components (introduced in Next.js 13)
+
+yes so when we do Static side it is fetched once during initial load and when user again g
+oes to that same url its already rendered right where incase of server side every t
+ime user goes to thaty page it renders and fetches every time
+
+Static SITE GENERATION - Only Once during initial page build time prerenderd - good for static content 
+SERVER SIDE GENERATION - every time when user lands on that page each time request made 
+INCREMENTAL SITE GENERATION 
+
+CLIENT SIDE RENDERING - AFTER PAGE IS LOADED IT FETCHES THE DATA 
+1. What is Next.js?
+Next.js is a React-based framework for building modern web applications. It provides:
+
+Server-Side Rendering (SSR) and Static Site Generation (SSG) out of the box.
+API Routes for backend functionality.
+File-based routing and dynamic routes.
+Built-in optimization features (image optimization, code splitting, etc.).
+Support for both Server Components and Client Components (introduced in Next.js 13).
+2. Key Features of Next.js
+2.1 Routing
+Next.js uses a file-based routing system:
+
+The pages directory (or app directory in Next.js 13) defines routes.
+Folder/file structure corresponds to URL paths.
+Example:
+plaintext
+Copy code
+pages/index.js            -> "/"
+pages/about.js            -> "/about"
+pages/blog/[slug].js      -> "/blog/:slug"
+Dynamic routes use square brackets ([slug].js), allowing you to handle paths dynamically.
+
+2.2 Rendering Methods
+Next.js supports different rendering methods for flexibility. Here’s a breakdown:
+
+Static Site Generation (SSG)
+Pre-renders the page at build time.
+The resulting HTML is static and served to users.
+Ideal for content that doesn’t change often.
+Example of SSG:
+javascript
+Copy code
+export async function getStaticProps() {
+  const res = await fetch('https://api.example.com/posts');
+  const posts = await res.json();
+
+  return { props: { posts } }; // Passed to the page component
+}
+
+export default function Blog({ posts }) {
+  return (
+    <div>
+      {posts.map((post) => (
+        <div key={post.id}>{post.title}</div>
+      ))}
+    </div>
+  );
+}
+Use getStaticProps to fetch data at build time.
+Best for blogs, marketing sites, and documentation.
+Server-Side Rendering (SSR)
+Pre-renders the page on each request.
+Fetches fresh data for every user.
+Use it when data changes frequently or depends on request-specific parameters.
+Example of SSR:
+javascript
+Copy code
+export async function getServerSideProps(context) {
+  const res = await fetch(`https://api.example.com/posts/${context.params.id}`);
+  const post = await res.json();
+
+  return { props: { post } };
+}
+
+export default function Post({ post }) {
+  return <h1>{post.title}</h1>;
+}
+Use getServerSideProps for dynamic or real-time content.
+Client-Side Rendering (CSR)
+Fetches and renders data in the browser after the page is loaded.
+Used for user-specific data or data that changes based on interactions.
+Example of CSR:
+javascript
+Copy code
+import { useEffect, useState } from 'react';
+
+export default function Dashboard() {
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    fetch('/api/user-data')
+      .then((res) => res.json())
+      .then((data) => setData(data));
+  }, []);
+
+  if (!data) return <p>Loading...</p>;
+
+  return <div>Welcome, {data.name}!</div>;
+}
+Use CSR when SEO isn’t critical or when data must be fetched after page load.
+Incremental Static Regeneration (ISR)
+Updates static pages without rebuilding the entire site.
+Define a revalidate time interval to regenerate the page.
+Example of ISR:
+javascript
+Copy code
+export async function getStaticProps() {
+  const res = await fetch('https://api.example.com/posts');
+  const posts = await res.json();
+
+  return {
+    props: { posts },
+    revalidate: 10, // Rebuilds the page every 10 seconds
+  };
+}
+
+export default function Blog({ posts }) {
+  return (
+    <div>
+      {posts.map((post) => (
+        <div key={post.id}>{post.title}</div>
+      ))}
+    </div>
+  );
+}
+Best for e-commerce product listings or frequently updated content.
+When to Use Each Rendering Method
+Use Case	Method	Why
+Static content, rarely changes	SSG	Fast, pre-rendered at build time.
+Dynamic content per request	SSR	Fresh data for every request.
+User-specific or client-only data	CSR	Data fetched after page load.
+Static content with periodic updates	ISR	Combines SSG speed with real-time updates.
+2.3 API Routes
+Use the pages/api directory to define serverless API routes.
+Each file in api becomes an endpoint.
+Example:
+javascript
+Copy code
+// pages/api/hello.js
+export default function handler(req, res) {
+  res.status(200).json({ message: 'Hello, Next.js!' });
+}
+Access the endpoint at /api/hello.
+2.4 Image Optimization
+Next.js optimizes images automatically with the next/image component.
+Supports lazy loading and responsive sizes.
+Example:
+javascript
+Copy code
+import Image from 'next/image';
+
+export default function Home() {
+  return <Image src="/example.jpg" alt="Example" width={500} height={300} />;
+}
+2.5 Built-In SEO
+Use the metadata export or <Head> component for meta tags.
+Example in layout.js (App Directory):
+javascript
+Copy code
+export const metadata = {
+  title: 'My Awesome Page',
+  description: 'This is a description for SEO.',
+};
+2.6 Middleware
+Middleware allows you to run code before a request is completed.
+Useful for authentication, redirects, and more.
+Example:
+javascript
+Copy code
+// middleware.js
+export function middleware(request) {
+  const { pathname } = request.nextUrl;
+
+  if (pathname === '/admin') {
+    return Response.redirect('/login');
+  }
+}
+2.7 Static Assets
+Place static files in the public folder.
+Access them via /filename.
+2.8 Dynamic Routing
+Dynamic routes are created using brackets ([param]).
+
+Example:
+plaintext
+Copy code
+pages/blog/[slug].js  -> /blog/:slug
+Code Example:
+javascript
+Copy code
+export async function getStaticProps({ params }) {
+  const res = await fetch(`https://api.example.com/posts/${params.slug}`);
+  const post = await res.json();
+
+  return { props: { post } };
+}
+
+export async function getStaticPaths() {
+  const res = await fetch('https://api.example.com/posts');
+  const posts = await res.json();
+
+  const paths = posts.map((post) => ({
+    params: { slug: post.slug },
+  }));
+
+  return { paths, fallback: false };
+}
+Next Steps
+Try building a blog with SSG and dynamic routes.
+Add API routes for backend tasks.
+Experiment with CSR, SSR, and ISR based on data requirements.
+Let me know what part you’d like to dive deeper into! 😊
+
+
+
+
+
+
+
+
+
+
+
+
