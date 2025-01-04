@@ -296,7 +296,15 @@ Traditional Redux with Thunk	Centralized state, scalable, flexible async handlin
 RTK with createAsyncThunk	Reduced boilerplate, automatic state handling, easier setup	Requires learning RTK, need Redux Toolkit
 Each approach has its strengths and weaknesses. Plain Redux works well for small apps, Redux with Thunk adds flexibility but with more boilerplate, and RTK is the most efficient and modern way to handle async actions with minimal effort.
 
+---------------------------------------
+REDUX THUNK NORMAL ONE HAS FETCHUSER IS SPECIAL TYPR OF ACTION CREATOR WHICH HANDLES EVERYTHING
 
+Normal Action Creator: A typical action creator is just a pure function that returns a plain action object. For example:
+
+javascript
+Copy code
+export const userLoading = () => ({ type: 'USER_LOADING' });
+v
 
 
 
