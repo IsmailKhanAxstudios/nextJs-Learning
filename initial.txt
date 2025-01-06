@@ -7,7 +7,7 @@ File-based routing and dynamic routes.
 Built-in optimization features (image optimization, code splitting, etc.).
 Support for both Server Components and Client Components (introduced in Next.js 13)
 
-yes so when we do Static side it is fetched once during initial load and when user again g
+yes so when we do Static side it is fetched once during initial load  BUILD TIME AND ALL API FETCHED THAT TIME AND WHEN USER HITS DOMAIN DATA IS THERE AND WHEN USER REFRESH STILL NO CHANGE and when user again g
 oes to that same url its already rendered right where incase of server side every t
 ime user goes to thaty page it renders and fetches every time
 
